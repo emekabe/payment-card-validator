@@ -27,6 +27,16 @@ public class CardDetail {
     @Column(name = "number_of_hits", nullable = false)
     private Integer numberOfHits = 1;
 
+    public CardDetail() {
+    }
+
+    public CardDetail(String firstEightDigits, String scheme, String type, String bank) {
+        this.firstEightDigits = firstEightDigits;
+        this.scheme = scheme;
+        this.type = type;
+        this.bank = bank;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }

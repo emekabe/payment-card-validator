@@ -7,6 +7,13 @@ public class BankPojo {
 
     private String name;
 
+    public BankPojo() {
+    }
+
+    public BankPojo(String name) {
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }
