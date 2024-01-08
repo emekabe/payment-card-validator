@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 
 @Entity
 public class CardDetail {
+
     @Id
     @GeneratedValue
     private Long id;
