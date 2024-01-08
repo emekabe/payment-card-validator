@@ -4,7 +4,9 @@ import com.example.paymentcardvalidator.dto.ExternalValidatorResponse;
 import com.example.paymentcardvalidator.dto.StatsResponse;
 import com.example.paymentcardvalidator.dto.VerifyCardResponse;
 import com.example.paymentcardvalidator.entity.CardDetail;
+import com.example.paymentcardvalidator.exception.InvalidCardDetailException;
 import com.example.paymentcardvalidator.repository.CardDetailRepository;
+import com.example.paymentcardvalidator.util.CardDigitValidationUtil;
 import com.example.paymentcardvalidator.util.ExternalValidatorUtil;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -21,14 +23,21 @@ public class CardService {
 
     private final CardDetailRepository cardDetailRepository;
     private final ExternalValidatorUtil externalValidatorUtil;
+    private final CardDigitValidationUtil cardDigitValidationUtil;
 
-    public CardService(CardDetailRepository cardDetailRepository, ExternalValidatorUtil externalValidatorUtil) {
+    public CardService(CardDetailRepository cardDetailRepository,
+                       ExternalValidatorUtil externalValidatorUtil,
+                       CardDigitValidationUtil cardDigitValidationUtil
+    ) {
         this.cardDetailRepository = cardDetailRepository;
         this.externalValidatorUtil = externalValidatorUtil;
+        this.cardDigitValidationUtil = cardDigitValidationUtil;
     }
 
     @Transactional
     public VerifyCardResponse verifyCard(String firstEightDigits) {
+        validateFirstEightDigits(firstEightDigits);
+
         VerifyCardResponse verifyCardResponse = new VerifyCardResponse();
         Optional<CardDetail> cardDetailOptional = cardDetailRepository.findCardDetailByFirstEightDigits(firstEightDigits);
 
@@ -63,6 +72,12 @@ public class CardService {
 
         verifyCardResponse.setSuccess(false);
         return verifyCardResponse;
+    }
+
+    private void validateFirstEightDigits(String firstEightDigits) {
+        if (!cardDigitValidationUtil.validateFirstEightDigits(firstEightDigits)) {
+            throw new InvalidCardDetailException("First eight digits of payment card required and ensure exactly eight digits are provided");
+        }
     }
 
     private void incrementNumberOfHitsOnCardDetail(CardDetail cardDetail) {
