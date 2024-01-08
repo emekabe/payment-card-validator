@@ -76,7 +76,7 @@ public class CardService {
 
     private void validateFirstEightDigits(String firstEightDigits) {
         if (!cardDigitValidationUtil.validateFirstEightDigits(firstEightDigits)) {
-            throw new InvalidCardDetailException("First eight digits of payment card required and ensure exactly eight digits are provided");
+            throw new InvalidCardDetailException("First eight digits of payment card required and ensure exactly eight digits (numbers) are provided");
         }
     }
 

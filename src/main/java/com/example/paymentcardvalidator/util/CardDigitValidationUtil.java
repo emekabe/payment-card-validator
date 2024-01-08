@@ -6,7 +6,14 @@ import org.springframework.stereotype.Component;
 public class CardDigitValidationUtil {
 
     public boolean validateFirstEightDigits(String firstEightDigits) {
-        return firstEightDigits != null && firstEightDigits.length() == 8;
+        try {
+            Long.parseLong(firstEightDigits);
+        } catch (NumberFormatException e) {
+            System.err.println("Number not passed as card digits");
+            return false;
+        }
+
+        return firstEightDigits.length() == 8;
     }
 
 }
