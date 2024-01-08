@@ -14,7 +14,7 @@ public class Customer {
     @Column(name = "username", nullable = false, unique = true)
     private String username;
 
-    @Column(name = "username", nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
 
     public void setId(Long id) {
