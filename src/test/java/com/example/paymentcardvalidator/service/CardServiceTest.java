@@ -43,7 +43,7 @@ class CardServiceTest {
 
     @Test
     void verifyCard_ValidCardDetails_Success() {
-        String firstEightDigits = "01234567";
+        String firstEightDigits = "12345678";
 
         ExternalValidatorResponse externalValidatorResponse = new ExternalValidatorResponse();
         externalValidatorResponse.setScheme("visa");
