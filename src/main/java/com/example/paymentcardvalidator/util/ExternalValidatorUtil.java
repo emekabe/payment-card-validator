@@ -19,7 +19,7 @@ public class ExternalValidatorUtil {
                     .bodyToMono(ExternalValidatorResponse.class)
                     .block();
         } catch (Exception e) {
-            System.err.println("An eror occured while fetching card details from 3rd party API");
+            System.err.println("An error occurred while fetching card details from 3rd party API");
         }
 
         return response;
